@@ -1,6 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url("/public/WorkSans-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src: url("/public/Archivo-VariableFont_wdth,wght.ttf") format("truetype");
+}
+
+
  
 @layer base {
   :root {
