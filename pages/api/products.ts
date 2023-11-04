@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { db } from "@/database";
 import { products } from "@/database/schema";
 
-type Data = {
+export type Data = {
   id: number;
   name: string;
   price: string;
