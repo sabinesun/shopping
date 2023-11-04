@@ -17,8 +17,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        "work-sans": ["Work Sans"],
-        archivo: ["Archivo"],
+        "work-sans": ["Work Sans", "sans-serif"],
+        archivo: ["Archivo", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
