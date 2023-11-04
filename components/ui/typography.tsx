@@ -7,7 +7,7 @@ const typographyVariants = cva("", {
     variant: {
       h1: "text-3xl uppercase font-archivo font-bold",
       h2: "text-2xl uppercase font-archivo font-semibold",
-      h3: "text-xl uppercase font-archivo font-medium",
+      h3: "text-lg uppercase font-archivo font-medium",
     },
   },
 });
