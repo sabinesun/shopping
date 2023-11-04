@@ -4,12 +4,12 @@
 
 @font-face {
   font-family: 'Work Sans';
-  src: url("/public/WorkSans-VariableFont_wght.ttf") format("truetype");
+  src: url('/WorkSans-VariableFont_wght.ttf') format("truetype");
 }
 
 @font-face {
   font-family: 'Archivo';
-  src: url("/public/Archivo-VariableFont_wdth,wght.ttf") format("truetype");
+  src: url("/Archivo-VariableFont_wdth,wght.ttf") format("truetype");
 }
 
 
