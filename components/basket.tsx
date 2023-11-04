@@ -1,13 +1,19 @@
-import { BasketItem } from "@/pages";
 import { Plus, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BasketItem } from "@/pages/_app";
+import { useContext } from "react";
+import { AddBasketContext } from "@/context/basket-context";
 
 type BasketProps = {
   basket: Map<number, BasketItem>;
-  addBasket: (item: BasketItem) => void;
   deleteBasket: (item: BasketItem) => void;
 };
-export const Basket = ({ basket, addBasket, deleteBasket }: BasketProps) => {
+export const Basket = ({ basket, deleteBasket }: BasketProps) => {
+  const addBasket = useContext(AddBasketContext);
+  if (addBasket === undefined) {
+    throw new Error();
+  }
+
   if (basket.size === 0) {
     return (
       <div className="flex h-full items-center justify-center">

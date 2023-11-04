@@ -1,5 +1,5 @@
 import { Typography } from "@/components/ui/typography";
-import { Baby, ShoppingBasket } from "lucide-react";
+import { ShoppingBasket } from "lucide-react";
 import {
   Sheet,
   SheetClose,
@@ -10,17 +10,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { BasketItem } from "@/pages";
 import { Basket } from "@/components/basket";
 import { Button } from "@/components/ui/button";
+import { BasketItem } from "@/pages/_app";
 
 type NavbarProps = {
   basket: Map<number, BasketItem>;
-  addBasket: (item: BasketItem) => void;
   deleteBasket: (item: BasketItem) => void;
 };
 
-export const Navbar = ({ basket, addBasket, deleteBasket }: NavbarProps) => {
+export const Navbar = ({ basket, deleteBasket }: NavbarProps) => {
   let totalPrice = 0;
   Array.from(basket.values()).map(
     (item) => (totalPrice += Number(item.price) * item.quantity),
@@ -40,11 +39,7 @@ export const Navbar = ({ basket, addBasket, deleteBasket }: NavbarProps) => {
             <SheetTitle className="border-accent flex justify-center border-b-2 pb-4">
               Panier
             </SheetTitle>
-            <Basket
-              basket={basket}
-              addBasket={addBasket}
-              deleteBasket={deleteBasket}
-            ></Basket>
+            <Basket basket={basket} deleteBasket={deleteBasket}></Basket>
           </SheetHeader>
           <SheetFooter>
             {basket.size !== 0 && (

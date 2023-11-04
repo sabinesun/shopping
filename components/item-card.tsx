@@ -1,13 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { Data } from "@/pages/api/products";
-import { BasketItem } from "@/pages";
+import { useContext } from "react";
+import { AddBasketContext } from "@/context/basket-context";
 
 type ItemCardProps = {
   item: Data;
-  addBasket: (item: BasketItem) => void;
 };
-export const ItemCard = ({ item, addBasket }: ItemCardProps) => {
+export const ItemCard = ({ item }: ItemCardProps) => {
+  const addBasket = useContext(AddBasketContext);
+  if (addBasket === undefined) {
+    throw new Error();
+  }
   return (
     <div className="flex flex-col">
       <div className="bg-muted group flex h-52 items-end justify-center p-3  sm:h-72 sm:p-5 lg:h-96 lg:p-7">
