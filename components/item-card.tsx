@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { Data } from "@/pages/api/products";
 import { useContext } from "react";
-import { AddBasketContext } from "@/context/basket-context";
+import { BasketContext } from "@/context/basket-context";
 
 type ItemCardProps = {
   item: Data;
 };
 export const ItemCard = ({ item }: ItemCardProps) => {
-  const addBasket = useContext(AddBasketContext);
+  const addBasket = useContext(BasketContext);
   if (addBasket === undefined) {
     throw new Error();
   }
@@ -22,7 +22,7 @@ export const ItemCard = ({ item }: ItemCardProps) => {
               title: `${item.name} a bien été ajouté dans votre panier`,
               description: `${item.price}€`,
             });
-            addBasket({
+            addBasket?.addBasket({
               id: item.id,
               price: item.price,
               name: item.name,

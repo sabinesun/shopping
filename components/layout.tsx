@@ -5,19 +5,17 @@ import { BasketItem } from "@/pages/_app";
 
 export default function Layout({
   children,
-  basket,
   deleteBasket,
 }: {
   readonly children: React.ReactNode;
-  readonly basket: Map<number, BasketItem>;
   readonly deleteBasket: (item: BasketItem) => void;
 }) {
   return (
-    <>
-      <Navbar basket={basket} deleteBasket={deleteBasket} />
+    <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
+      <Navbar deleteBasket={deleteBasket} />
       <main>{children}</main>
       <Toaster />
       <Footer />
-    </>
+    </div>
   );
 }

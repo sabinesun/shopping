@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useState } from "react";
-import { AddBasketContext } from "@/context/basket-context";
+import { BasketContext } from "@/context/basket-context";
 import Layout from "@/components/layout";
 
 export type BasketItem = {
@@ -49,10 +49,10 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <AddBasketContext.Provider value={addBasket}>
-      <Layout basket={basket} deleteBasket={deleteBasket}>
+    <BasketContext.Provider value={{ addBasket: addBasket, basket: basket }}>
+      <Layout deleteBasket={deleteBasket}>
         <Component {...pageProps} />
       </Layout>
-    </AddBasketContext.Provider>
+    </BasketContext.Provider>
   );
 }
