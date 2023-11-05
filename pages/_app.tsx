@@ -1,8 +1,9 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BasketContext } from "@/context/basket-context";
 import Layout from "@/components/layout";
+import { z } from "zod";
 
 export type BasketItem = {
   id: number;
@@ -11,8 +12,40 @@ export type BasketItem = {
   quantity: number;
 };
 
+const basketSchema = z.record(
+  z.object({
+    id: z.number(),
+    price: z.string(),
+    name: z.string(),
+    quantity: z.number(),
+  }),
+);
+
 export default function App({ Component, pageProps }: AppProps) {
   const [basket, setBasket] = useState(new Map<number, BasketItem>());
+
+  useEffect(() => {
+    const basketLocalStorage = localStorage.getItem("basket") || "";
+    try {
+      const parsedBasket = JSON.parse(basketLocalStorage);
+      const validatedBasket = basketSchema.parse(parsedBasket);
+
+      const basketInMap = new Map(
+        Object.entries(validatedBasket).map(([key, value]) => [
+          Number(key),
+          value,
+        ]),
+      );
+
+      setBasket(basketInMap);
+    } catch (error) {
+      console.error("Error parsing or validating basket:", error);
+    }
+  }, []);
+
+  const saveToLocalStorage = () => {
+    localStorage.setItem("basket", JSON.stringify(Object.fromEntries(basket)));
+  };
 
   const addBasket = (item: BasketItem) => {
     setBasket((prevBasket) => {
@@ -29,6 +62,7 @@ export default function App({ Component, pageProps }: AppProps) {
       prevBasket.set(item.id, updatedItem);
       return new Map(prevBasket);
     });
+    saveToLocalStorage();
   };
 
   const deleteBasket = (item: BasketItem) => {
@@ -46,6 +80,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       return new Map(prevBasket);
     });
+    saveToLocalStorage();
   };
 
   return (
