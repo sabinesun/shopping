@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { Data } from "@/pages/api/products";
+import { ProductData } from "@/pages/api/products";
 import { useContext } from "react";
 import { BasketContext } from "@/context/basket-context";
 
 type ItemCardProps = {
-  item: Data;
+  item: ProductData;
 };
 export const ItemCard = ({ item }: ItemCardProps) => {
   const addBasket = useContext(BasketContext);

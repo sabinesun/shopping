@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { db } from "@/database";
 import { products } from "@/database/schema";
 
-export type Data = {
+export type ProductData = {
   id: number;
   name: string;
   price: string;
@@ -11,7 +11,7 @@ export type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data[] | undefined>,
+  res: NextApiResponse<ProductData[] | undefined>,
 ) {
   if (req.method !== "GET") {
     res.status(404).json(undefined);
