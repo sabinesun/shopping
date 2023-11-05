@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/forms";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const CheckoutForms = () => {
   const formSchema = z.object({
@@ -130,9 +131,11 @@ export const CheckoutForms = () => {
           />
         </div>
 
-        <Button type="submit" className="rounded uppercase">
-          Continuer vers l'expédition
-        </Button>
+        <Link href="/checkout/shipping" className=" w-full ">
+          <Button type="submit" className="w-full rounded uppercase">
+            Continuer vers l'expédition
+          </Button>
+        </Link>
       </form>
     </Form>
   );

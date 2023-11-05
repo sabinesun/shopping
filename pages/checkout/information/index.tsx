@@ -5,9 +5,7 @@ import { BasketContext } from "@/context/basket-context";
 import { Typography } from "@/components/ui/typography";
 import { CheckoutForms } from "@/components/checkout-forms";
 
-export default function Checkout() {
-  const [step, setStep] = useState("info");
-
+export default function Information() {
   const basket = useContext(BasketContext);
   if (basket === undefined) {
     throw new Error();
@@ -22,27 +20,15 @@ export default function Checkout() {
     <div className="flex w-full justify-center">
       <div className="p-4 sm:flex sm:w-2/3 sm:flex-col ">
         <div className="text-muted m-2 flex items-center justify-center text-xs">
-          <div
-            className={` ${step === "info" && "text-accent"} flex items-center`}
-          >
+          <div className={"text-accent flex items-center"}>
             <div className="uppercase">Information</div>
             <ChevronRight strokeWidth={1} width={16} />
           </div>
-          <div
-            className={` ${
-              step === "shipping" && "text-accent"
-            } flex items-center`}
-          >
+          <div className={" flex items-center"}>
             <div className="uppercase">Expédition</div>
             <ChevronRight strokeWidth={1} width={16} />
           </div>
-          <div
-            className={` ${
-              step === "payment" && "text-accent"
-            } flex items-center uppercase`}
-          >
-            Paiement
-          </div>
+          <div className={"flex items-center uppercase"}>Paiement</div>
         </div>
 
         <div className="flex flex-col sm:flex-row-reverse sm:justify-around sm:gap-28">

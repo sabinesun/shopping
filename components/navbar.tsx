@@ -59,7 +59,7 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
                     <div>{totalPrice.toFixed(2)}€</div>
                   </div>
                   <SheetClose asChild className="w-full">
-                    <Link href="/checkout">
+                    <Link href="/checkout/information">
                       <Button className="hover:bg-accent my-4 w-full rounded">
                         Payer
                       </Button>
