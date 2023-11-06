@@ -42,10 +42,10 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
   ];
 
   return (
-    <header className="bg-secondBackground flex flex-row items-center px-7 py-2.5">
-      <Typography variant="h1" className="w-full text-center">
-        The shopping store
-      </Typography>
+    <header className="flex flex-row items-center bg-secondBackground px-7 py-2.5">
+      <Link href="/" className="w-full text-center">
+        <Typography variant="h1">The shopping store</Typography>
+      </Link>
       {!checkoutPath.includes(router.pathname) && (
         <Sheet>
           <SheetTrigger className="flex items-center">
@@ -53,7 +53,7 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
           </SheetTrigger>
           <SheetContent className="flex flex-col justify-between">
             <SheetHeader className="h-5/6">
-              <SheetTitle className="border-accent flex justify-center border-b-2 pb-4">
+              <SheetTitle className="flex justify-center border-b-2 border-accent pb-4">
                 Panier
               </SheetTitle>
               <Basket deleteBasket={deleteBasket}></Basket>
@@ -67,7 +67,7 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
                   </div>
                   <SheetClose asChild className="w-full">
                     <Link href="/checkout/information">
-                      <Button className="hover:bg-accent my-4 w-full rounded">
+                      <Button className="my-4 w-full rounded hover:bg-accent">
                         Payer
                       </Button>
                     </Link>

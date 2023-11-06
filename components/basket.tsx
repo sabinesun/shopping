@@ -37,6 +37,19 @@ export const Basket = ({ deleteBasket }: BasketProps) => {
     }
   };
 
+  const disabled = (item: BasketItem) => {
+    const totalQuantity = data?.find((product) => product.id == item.id)
+      ?.inventory;
+    const actualBasketQuantity = basket.products.get(item.id)?.quantity;
+    if (totalQuantity !== undefined && actualBasketQuantity !== undefined) {
+      if (totalQuantity <= actualBasketQuantity) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
   return (
     <div className=" overflow-y-scroll">
       {Array.from(basket.products.values()).map((item) => (
@@ -47,13 +60,13 @@ export const Basket = ({ deleteBasket }: BasketProps) => {
               <div className="text-base font-semibold lg:text-lg">
                 {item.name}
               </div>
-              <div className="text-accent text-sm lg:text-base">
+              <div className="text-sm text-accent lg:text-base">
                 {item.price} €
               </div>
               <div>Taille : Taille Unique</div>
             </div>
             <div>
-              <div className="border-primary flex h-10 flex-row flex-wrap content-center justify-between rounded border">
+              <div className="flex h-10 flex-row flex-wrap content-center justify-between rounded border border-primary">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -68,6 +81,7 @@ export const Basket = ({ deleteBasket }: BasketProps) => {
                   onClick={() => {
                     addProduct(item);
                   }}
+                  disabled={disabled(item)}
                 >
                   <Plus strokeWidth={1} width={16} />
                 </Button>

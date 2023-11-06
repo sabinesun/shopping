@@ -43,10 +43,6 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, []);
 
-  const saveToLocalStorage = () => {
-    localStorage.setItem("basket", JSON.stringify(Object.fromEntries(basket)));
-  };
-
   const addProduct = (item: BasketItem) => {
     setBasket((prevBasket) => {
       if (!prevBasket.has(item.id)) {
@@ -62,7 +58,7 @@ export default function App({ Component, pageProps }: AppProps) {
       prevBasket.set(item.id, updatedItem);
       return new Map(prevBasket);
     });
-    saveToLocalStorage();
+    localStorage.setItem("basket", JSON.stringify(Object.fromEntries(basket)));
   };
 
   const deleteBasket = (item: BasketItem) => {
@@ -80,7 +76,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       return new Map(prevBasket);
     });
-    saveToLocalStorage();
+    localStorage.setItem("basket", JSON.stringify(Object.fromEntries(basket)));
   };
 
   return (

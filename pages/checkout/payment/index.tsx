@@ -6,9 +6,7 @@ import { Typography } from "@/components/ui/typography";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CheckoutForms } from "@/components/checkout-forms";
 import { CreditCardForms } from "@/components/credit-card-forms";
 
 export default function Shipping() {
@@ -25,23 +23,27 @@ export default function Shipping() {
   return (
     <div className="flex w-full justify-center">
       <div className="p-4 sm:flex sm:w-2/3 sm:flex-col ">
-        <div className="text-muted m-2 flex items-center justify-center text-xs">
+        <div className="m-2 flex items-center justify-center text-xs text-muted">
           <div className={" flex items-center"}>
-            <div className="uppercase">Information</div>
+            <Link href="/checkout/information">
+              <div className="uppercase">Information</div>
+            </Link>
             <ChevronRight strokeWidth={1} width={16} />
           </div>
           <div className={"flex items-center"}>
-            <div className="uppercase">Expédition</div>
+            <Link href="/checkout/shipping">
+              <div className="uppercase">Expédition</div>
+            </Link>
             <ChevronRight strokeWidth={1} width={16} />
           </div>
-          <div className={"text-accent flex items-center uppercase"}>
+          <div className={"flex items-center uppercase text-accent"}>
             Paiement
           </div>
         </div>
 
         <div className="flex flex-col sm:flex-row-reverse sm:justify-around sm:gap-28">
           <div className="flex flex-col">
-            <div className="border-primary flex flex-col gap-2 border-b py-6">
+            <div className="flex flex-col gap-2 border-b border-primary py-6">
               {Array.from(basket.products.values()).map((product) => (
                 <CheckoutProductCard
                   key={product.id}
@@ -70,7 +72,7 @@ export default function Shipping() {
                     <RadioGroupItem value="option-one" id="option-one" />
                     <Label
                       htmlFor="option-one"
-                      className=" font-archivo flex w-full"
+                      className=" flex w-full font-archivo"
                     >
                       Carte de crédit
                     </Label>
