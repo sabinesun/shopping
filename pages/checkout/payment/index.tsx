@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CheckoutForms } from "@/components/checkout-forms";
+import { CreditCardForms } from "@/components/credit-card-forms";
 
 export default function Shipping() {
   const basket = useContext(BasketContext);
@@ -28,11 +30,13 @@ export default function Shipping() {
             <div className="uppercase">Information</div>
             <ChevronRight strokeWidth={1} width={16} />
           </div>
-          <div className={"text-accent flex items-center"}>
+          <div className={"flex items-center"}>
             <div className="uppercase">Expédition</div>
             <ChevronRight strokeWidth={1} width={16} />
           </div>
-          <div className={"flex items-center uppercase"}>Paiement</div>
+          <div className={"text-accent flex items-center uppercase"}>
+            Paiement
+          </div>
         </div>
 
         <div className="flex flex-col sm:flex-row-reverse sm:justify-around sm:gap-28">
@@ -57,55 +61,30 @@ export default function Shipping() {
 
           <div className="flex flex-col py-6 sm:w-full">
             <Typography variant="h3" className="pb-4">
-              Récapitulatif
+              Paiement
             </Typography>
-            <div className="rounded border p-4">
-              <div className="flex justify-between">
-                <div className="text-muted font-archivo text-sm">Contact</div>
-                <Link
-                  href="/checkout/information"
-                  className="font-archivo text-xs"
-                >
-                  Changement
-                </Link>
+            <div className="rounded border">
+              <div className="border-b p-4">
+                <RadioGroup defaultValue="option-one">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="option-one" id="option-one" />
+                    <Label
+                      htmlFor="option-one"
+                      className=" font-archivo flex w-full"
+                    >
+                      Carte de crédit
+                    </Label>
+                  </div>
+                </RadioGroup>
               </div>
-              <div className="border-b pb-2">email</div>
-              <div className="flex justify-between pt-2">
-                <div className="text-muted font-archivo text-sm">Envoyez à</div>
-                <Link
-                  href="/checkout/information"
-                  className="font-archivo text-xs"
-                >
-                  Changement
-                </Link>
+              <div className="bg-[#FAFAFA] p-4">
+                <CreditCardForms />
               </div>
-              <div>adresse</div>
             </div>
-            <Typography variant="h3" className="py-4">
-              Mode de livraison
-            </Typography>
-            <div className="rounded border p-4">
-              <RadioGroup defaultValue="option-one">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option-one" id="option-one" />
-                  <Label
-                    htmlFor="option-one"
-                    className=" font-archivo flex w-full justify-between"
-                  >
-                    <div className="flex items-center">
-                      <Truck className="mr-2" />
-                      <div className="text-muted">
-                        Livraison domicile offerte
-                      </div>
-                    </div>
-                    <div className="flex items-center">Offert</div>
-                  </Label>
-                </div>
-              </RadioGroup>
-            </div>
+
             <Link href="/checkout/payment" className=" mt-10 w-full ">
               <Button type="submit" className="w-full rounded uppercase">
-                Continuer vers l'expédition
+                Payer maintenant
               </Button>
             </Link>
           </div>
