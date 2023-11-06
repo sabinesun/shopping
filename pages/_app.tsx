@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }: AppProps) {
     localStorage.setItem("basket", JSON.stringify(Object.fromEntries(basket)));
   };
 
-  const addBasket = (item: BasketItem) => {
+  const addProduct = (item: BasketItem) => {
     setBasket((prevBasket) => {
       if (!prevBasket.has(item.id)) {
         prevBasket.set(item.id, item);
@@ -84,7 +84,9 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <BasketContext.Provider value={{ addBasket: addBasket, basket: basket }}>
+    <BasketContext.Provider
+      value={{ addProduct: addProduct, products: basket }}
+    >
       <Layout deleteBasket={deleteBasket}>
         <Component {...pageProps} />
       </Layout>

@@ -31,7 +31,7 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
   }
 
   let totalPrice = 0;
-  Array.from(basket.basket.values()).map(
+  Array.from(basket.products.values()).map(
     (item) => (totalPrice += Number(item.price) * item.quantity),
   );
   return (
@@ -52,7 +52,7 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
               <Basket deleteBasket={deleteBasket}></Basket>
             </SheetHeader>
             <SheetFooter>
-              {basket.basket.size !== 0 && (
+              {basket.products.size !== 0 && (
                 <div className="w-full">
                   <div className="flex justify-between text-lg font-semibold">
                     <div>Total</div>

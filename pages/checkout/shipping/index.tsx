@@ -12,7 +12,7 @@ export default function Shipping() {
   }
 
   let totalPrice = 0;
-  Array.from(basket.basket.values()).map(
+  Array.from(basket.products.values()).map(
     (item) => (totalPrice += Number(item.price) * item.quantity),
   );
 

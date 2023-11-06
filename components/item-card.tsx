@@ -8,8 +8,8 @@ type ItemCardProps = {
   item: ProductData;
 };
 export const ItemCard = ({ item }: ItemCardProps) => {
-  const addBasket = useContext(BasketContext);
-  if (addBasket === undefined) {
+  const basket = useContext(BasketContext);
+  if (basket === undefined) {
     throw new Error();
   }
   return (
@@ -22,7 +22,7 @@ export const ItemCard = ({ item }: ItemCardProps) => {
               title: `${item.name} a bien été ajouté dans votre panier`,
               description: `${item.price}€`,
             });
-            addBasket?.addBasket({
+            basket?.addProduct({
               id: item.id,
               price: item.price,
               name: item.name,

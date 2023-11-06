@@ -8,12 +8,12 @@ type BasketProps = {
   deleteBasket: (item: BasketItem) => void;
 };
 export const Basket = ({ deleteBasket }: BasketProps) => {
-  const addBasket = useContext(BasketContext);
-  if (addBasket === undefined) {
+  const basket = useContext(BasketContext);
+  if (basket === undefined) {
     throw new Error();
   }
 
-  if (addBasket.basket.size === 0) {
+  if (basket.products.size === 0) {
     return (
       <div className="flex h-full items-center justify-center">
         Votre panier est vide
@@ -23,7 +23,7 @@ export const Basket = ({ deleteBasket }: BasketProps) => {
 
   return (
     <div className=" overflow-y-scroll">
-      {Array.from(addBasket.basket.values()).map((item) => (
+      {Array.from(basket.products.values()).map((item) => (
         <div key={item.id} className=" my-4 grid h-44 grid-cols-2 gap-2">
           <div className="bg-muted"></div>
           <div className="flex flex-col justify-between  text-start">
@@ -49,7 +49,7 @@ export const Basket = ({ deleteBasket }: BasketProps) => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => addBasket?.addBasket(item)}
+                  onClick={() => basket?.addProduct(item)}
                 >
                   <Plus strokeWidth={1} width={16} />
                 </Button>

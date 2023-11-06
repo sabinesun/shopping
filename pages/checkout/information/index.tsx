@@ -12,7 +12,7 @@ export default function Information() {
   }
 
   let totalPrice = 0;
-  Array.from(basket.basket.values()).map(
+  Array.from(basket.products.values()).map(
     (item) => (totalPrice += Number(item.price) * item.quantity),
   );
 
@@ -34,7 +34,7 @@ export default function Information() {
         <div className="flex flex-col sm:flex-row-reverse sm:justify-around sm:gap-28">
           <div className="flex flex-col">
             <div className="border-primary flex flex-col gap-2 border-b py-6">
-              {Array.from(basket.basket.values()).map((product) => (
+              {Array.from(basket.products.values()).map((product) => (
                 <CheckoutProductCard
                   key={product.id}
                   product={product}
