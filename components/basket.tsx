@@ -3,11 +3,16 @@ import { Button } from "@/components/ui/button";
 import { BasketItem } from "@/pages/_app";
 import { useContext } from "react";
 import { BasketContext } from "@/context/basket-context";
+import useSWR from "swr";
+import { ProductData } from "@/pages/api/products";
+import { fetcher } from "@/lib/fetcher";
 
 type BasketProps = {
   deleteBasket: (item: BasketItem) => void;
 };
 export const Basket = ({ deleteBasket }: BasketProps) => {
+  const { data } = useSWR<ProductData[]>("/api/products", fetcher);
+
   const basket = useContext(BasketContext);
   if (basket === undefined) {
     throw new Error();
@@ -20,6 +25,17 @@ export const Basket = ({ deleteBasket }: BasketProps) => {
       </div>
     );
   }
+
+  const addProduct = (item: BasketItem) => {
+    const totalQuantity = data?.find((product) => product.id == item.id)
+      ?.inventory;
+    const actualBasketQuantity = basket.products.get(item.id)?.quantity;
+    if (totalQuantity !== undefined && actualBasketQuantity !== undefined) {
+      if (totalQuantity > actualBasketQuantity) {
+        basket?.addProduct(item);
+      }
+    }
+  };
 
   return (
     <div className=" overflow-y-scroll">
@@ -49,7 +65,9 @@ export const Basket = ({ deleteBasket }: BasketProps) => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => basket?.addProduct(item)}
+                  onClick={() => {
+                    addProduct(item);
+                  }}
                 >
                   <Plus strokeWidth={1} width={16} />
                 </Button>

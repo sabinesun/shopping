@@ -3,26 +3,42 @@ import { toast } from "@/components/ui/use-toast";
 import { ProductData } from "@/pages/api/products";
 import { useContext } from "react";
 import { BasketContext } from "@/context/basket-context";
+import { BasketItem } from "@/pages/_app";
+import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 
 type ItemCardProps = {
   item: ProductData;
 };
 export const ItemCard = ({ item }: ItemCardProps) => {
+  const { data } = useSWR<ProductData[]>("/api/products", fetcher);
   const basket = useContext(BasketContext);
   if (basket === undefined) {
     throw new Error();
   }
+
+  const addProduct = (item: BasketItem) => {
+    const totalQuantity = data?.find((product) => product.id == item.id)
+      ?.inventory;
+    const actualBasketQuantity = basket.products.get(item.id)?.quantity;
+    if (totalQuantity !== undefined && actualBasketQuantity !== undefined) {
+      if (totalQuantity > actualBasketQuantity) {
+        toast({
+          title: `${item.name} a bien été ajouté dans votre panier`,
+          description: `${item.price}€`,
+        });
+        basket?.addProduct(item);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <div className="bg-muted group flex h-52 items-end justify-center p-3  sm:h-72 sm:p-5 lg:h-96 lg:p-7">
         <Button
           className="bg-secondBackground text-primary hover:text-accent hover:bg-secondBackground hidden h-9 w-full group-hover:flex sm:h-10 lg:h-11"
           onClick={() => {
-            toast({
-              title: `${item.name} a bien été ajouté dans votre panier`,
-              description: `${item.price}€`,
-            });
-            basket?.addProduct({
+            addProduct({
               id: item.id,
               price: item.price,
               name: item.name,
