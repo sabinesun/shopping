@@ -34,12 +34,19 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
   Array.from(basket.products.values()).map(
     (item) => (totalPrice += Number(item.price) * item.quantity),
   );
+
+  const checkoutPath = [
+    "/checkout/shipping",
+    "/checkout/information",
+    "/checkout/payment",
+  ];
+
   return (
     <header className="bg-secondBackground flex flex-row items-center px-7 py-2.5">
       <Typography variant="h1" className="w-full text-center">
         The shopping store
       </Typography>
-      {router.pathname !== "/checkout" && (
+      {!checkoutPath.includes(router.pathname) && (
         <Sheet>
           <SheetTrigger className="flex items-center">
             <ShoppingBasket />
