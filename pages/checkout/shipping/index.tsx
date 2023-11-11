@@ -6,7 +6,7 @@ import { Typography } from "@/components/ui/typography";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Truck } from "lucide-react";
+import { Truck, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Shipping() {
@@ -31,10 +31,8 @@ export default function Shipping() {
             <ChevronRight strokeWidth={1} width={16} />
           </div>
           <div className={"flex items-center text-accent"}>
-            <div className="uppercase">Expédition</div>
-            <ChevronRight strokeWidth={1} width={16} />
+            <div className="uppercase">Collect</div>
           </div>
-          <div className={"flex items-center uppercase"}>Paiement</div>
         </div>
 
         <div className="flex flex-col sm:flex-row-reverse sm:justify-around sm:gap-28">
@@ -73,7 +71,9 @@ export default function Shipping() {
               </div>
               <div className="border-b pb-2">email</div>
               <div className="flex justify-between pt-2">
-                <div className="font-archivo text-sm text-muted">Envoyez à</div>
+                <div className="font-archivo text-sm text-muted">
+                  Venir le chercher le
+                </div>
                 <Link
                   href="/checkout/information"
                   className="font-archivo text-xs"
@@ -81,35 +81,57 @@ export default function Shipping() {
                   Changement
                 </Link>
               </div>
-              <div>adresse</div>
+              <div>date</div>
             </div>
             <Typography variant="h3" className="py-4">
               Mode de livraison
             </Typography>
-            <div className="rounded border p-4">
+            <div className=" space-y-4 rounded border p-4">
               <RadioGroup defaultValue="option-one">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option-one" id="option-one" />
-                  <Label
-                    htmlFor="option-one"
-                    className=" flex w-full justify-between font-archivo"
-                  >
-                    <div className="flex items-center">
-                      <Truck className="mr-2" />
-                      <div className="text-muted">
-                        Livraison domicile offerte
+                <div className="flex flex-col space-y-4">
+                  <div className="flex items-center">
+                    <RadioGroupItem value="option-one" id="option-one" />
+                    <Label
+                      htmlFor="option-one"
+                      className="mx-2 flex w-full justify-between font-archivo"
+                    >
+                      <div className="flex items-center">
+                        <ShoppingBag className="mr-2" />
+                        <div>Click & Collect</div>
                       </div>
-                    </div>
-                    <div className="flex items-center">Offert</div>
-                  </Label>
+                      <div className="flex items-center">Offert</div>
+                    </Label>
+                  </div>
+                  <div className="flex items-center">
+                    <RadioGroupItem
+                      value="option-two"
+                      id="option-two"
+                      disabled={true}
+                    />
+                    <Label
+                      htmlFor="option-two"
+                      className="mx-2 flex w-full justify-between font-archivo"
+                    >
+                      <div className="flex items-center">
+                        <Truck className="mr-2" />
+                        <div
+                          className="text-muted line-through
+"
+                        >
+                          Livraison domicile offerte
+                        </div>
+                      </div>
+                      <div className="flex items-center text-muted">
+                        Bientôt disponible
+                      </div>
+                    </Label>
+                  </div>
                 </div>
               </RadioGroup>
             </div>
-            <Link href="/checkout/payment" className=" mt-10 w-full ">
-              <Button type="submit" className="w-full rounded uppercase">
-                Continuer vers l'expédition
-              </Button>
-            </Link>
+            <Button type="submit" className="mt-10 w-full rounded uppercase">
+              Valider le panier
+            </Button>
           </div>
         </div>
       </div>

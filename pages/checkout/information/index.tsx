@@ -19,21 +19,19 @@ export default function Information() {
   return (
     <div className="flex w-full justify-center">
       <div className="p-4 sm:flex sm:w-2/3 sm:flex-col ">
-        <div className="text-muted m-2 flex items-center justify-center text-xs">
-          <div className={"text-accent flex items-center"}>
+        <div className="m-2 flex items-center justify-center text-xs text-muted">
+          <div className={"flex items-center text-accent"}>
             <div className="uppercase">Information</div>
             <ChevronRight strokeWidth={1} width={16} />
           </div>
           <div className={" flex items-center"}>
-            <div className="uppercase">Expédition</div>
-            <ChevronRight strokeWidth={1} width={16} />
+            <div className="uppercase">Collect</div>
           </div>
-          <div className={"flex items-center uppercase"}>Paiement</div>
         </div>
 
         <div className="flex flex-col sm:flex-row-reverse sm:justify-around sm:gap-28">
           <div className="flex flex-col">
-            <div className="border-primary flex flex-col gap-2 border-b py-6">
+            <div className="flex flex-col gap-2 border-b border-primary py-6">
               {Array.from(basket.products.values()).map((product) => (
                 <CheckoutProductCard
                   key={product.id}
