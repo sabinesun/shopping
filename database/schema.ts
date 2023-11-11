@@ -25,23 +25,31 @@ export const products = mysqlTable(
 );
 
 export const users = mysqlTable("Users", {
-  id: int("id").autoincrement().primaryKey(),
+  id: varchar("id", { length: 255 }).primaryKey(),
   lastName: text("last_name").notNull(),
   firstName: text("first_name").notNull(),
-  email: text("email").notNull(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
 });
 
 export const orders = mysqlTable("Orders", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("user_id").references(() => users.id, { onDelete: "cascade" }),
+  id: varchar("id", { length: 255 }).primaryKey(),
+  userId: varchar("user_id", { length: 255 })
+    .references(() => users.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
   createdDate: datetime("created_date"),
   collectDate: date("collect_date"),
   totalPrice: decimal("total_price", { precision: 10, scale: 2 }).notNull(),
 });
 
 export const orderLines = mysqlTable("OrderLines", {
-  id: int("id").autoincrement().primaryKey(),
+  id: varchar("id", { length: 255 }).primaryKey(),
   productId: int("product_id").references(() => products.id),
   quantity: int("quantity").notNull(),
-  orderId: int("order_id").references(() => orders.id, { onDelete: "cascade" }),
+  orderId: varchar("order_id", { length: 255 })
+    .references(() => orders.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
 });
