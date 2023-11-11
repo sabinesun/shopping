@@ -15,6 +15,13 @@
       "when": 1699108301712,
       "tag": "0001_deep_maximus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1699715854095,
+      "tag": "0002_breezy_xorn",
+      "breakpoints": true
     }
   ]
 }

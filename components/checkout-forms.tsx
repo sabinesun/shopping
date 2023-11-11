@@ -141,7 +141,7 @@ export const CheckoutForms = () => {
 
         <Link href="/checkout/shipping" className="w-full ">
           <Button type="submit" className="mt-10 w-full rounded uppercase">
-            Continuer vers l'expédition
+            Continuer
           </Button>
         </Link>
       </form>
