@@ -1,4 +1,3 @@
-import { ChevronRight } from "lucide-react";
 import { useContext, useState } from "react";
 import { CheckoutProductCard } from "@/components/checkout-product-card";
 import { BasketContext } from "@/context/basket-context";
@@ -22,10 +21,6 @@ export default function Information() {
         <div className="m-2 flex items-center justify-center text-xs text-muted">
           <div className={"flex items-center text-accent"}>
             <div className="uppercase">Information</div>
-            <ChevronRight strokeWidth={1} width={16} />
-          </div>
-          <div className={" flex items-center"}>
-            <div className="uppercase">Collect</div>
           </div>
         </div>
 

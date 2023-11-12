@@ -35,11 +35,7 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
     (item) => (totalPrice += Number(item.price) * item.quantity),
   );
 
-  const checkoutPath = [
-    "/checkout/shipping",
-    "/checkout/information",
-    "/checkout/payment",
-  ];
+  const checkoutPath = ["/checkout"];
 
   return (
     <header className="flex flex-row items-center bg-secondBackground px-7 py-2.5">
@@ -66,7 +62,7 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
                     <div>{totalPrice.toFixed(2)}€</div>
                   </div>
                   <SheetClose asChild className="w-full">
-                    <Link href="/checkout/information">
+                    <Link href="/checkout">
                       <Button className="my-4 w-full rounded hover:bg-accent">
                         Payer
                       </Button>

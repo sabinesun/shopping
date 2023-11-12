@@ -24,7 +24,7 @@ export default async function handler(
     return;
   }
 
-  const body = bodySchema.parse(req.body);
+  const body = bodySchema.parse(JSON.parse(req.body));
 
   let orderId = crypto.randomUUID();
 

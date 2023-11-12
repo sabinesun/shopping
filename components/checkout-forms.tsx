@@ -7,12 +7,10 @@ import {
   FormField,
   FormItem,
   FormMessage,
-  FormLabel,
   FormDescription,
 } from "@/components/ui/forms";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import {
   Popover,
   PopoverTrigger,
@@ -22,36 +20,59 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { OrderLinesType, postFetcher } from "@/lib/fetcher";
+import useSWRMutation from "swr/mutation";
+import { useContext } from "react";
+import { BasketContext } from "@/context/basket-context";
+
+const formSchema = z.object({
+  lastName: z.string().min(1, {
+    message: "Le nom doit contenir au moins 1 caractères",
+  }),
+  firstName: z.string().min(1, {
+    message: "Le prénom doit contenir au moins 1 caractères",
+  }),
+  email: z.string().email({
+    message: "Ce n'est pas une adresse email valide.",
+  }),
+  collectDate: z.date().min(new Date(), {
+    message: "Ce n'est pas une date valide",
+  }),
+});
 
 export const CheckoutForms = () => {
-  const formSchema = z.object({
-    lastname: z.string().min(1, {
-      message: "Le nom doit contenir au moins 1 caractères",
-    }),
-    firstname: z.string().min(1, {
-      message: "Le prénom doit contenir au moins 1 caractères",
-    }),
-    email: z.string().email({
-      message: "Ce n'est pas une adresse email valide.",
-    }),
-    date: z.date().min(new Date(), {
-      message: "Ce n'est pas une date valide",
-    }),
+  const basket = useContext(BasketContext);
+  if (basket === undefined) {
+    throw new Error();
+  }
+
+  let orderLines: OrderLinesType[] = [];
+
+  basket.products.forEach((value, key) => {
+    orderLines.push({ productId: value.id, quantity: value.quantity });
   });
+
+  const { trigger } = useSWRMutation("/api/checkout", postFetcher);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      lastname: "",
-      firstname: "",
+      lastName: "",
+      firstName: "",
       email: "",
-      date: new Date(),
+      collectDate: new Date(),
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    trigger({
+      lastName: values.lastName,
+      firstName: values.firstName,
+      email: values.email,
+      collectDate: values.collectDate.toISOString(),
+      orderLines: orderLines,
+    });
+  };
 
   return (
     <Form {...form}>
@@ -61,7 +82,7 @@ export const CheckoutForms = () => {
       >
         <FormField
           control={form.control}
-          name="lastname"
+          name="lastName"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -73,7 +94,7 @@ export const CheckoutForms = () => {
         />
         <FormField
           control={form.control}
-          name="firstname"
+          name="firstName"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -98,7 +119,7 @@ export const CheckoutForms = () => {
 
         <FormField
           control={form.control}
-          name="date"
+          name="collectDate"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <Popover>
@@ -133,17 +154,14 @@ export const CheckoutForms = () => {
               <FormDescription>
                 Choisissez la date pour votre Click & Collect.
               </FormDescription>
-
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Link href="/checkout/shipping" className="w-full ">
-          <Button type="submit" className="mt-10 w-full rounded uppercase">
-            Continuer
-          </Button>
-        </Link>
+        <Button type="submit" className="mt-10 w-full rounded uppercase">
+          Valider
+        </Button>
       </form>
     </Form>
   );
