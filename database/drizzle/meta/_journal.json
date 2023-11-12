@@ -1,1 +1,27 @@
-{"version":"5","dialect":"mysql","entries":[{"idx":0,"version":"5","when":1699108181643,"tag":"0000_omniscient_ogun","breakpoints":true},{"idx":1,"version":"5","when":1699108301712,"tag":"0001_deep_maximus","breakpoints":true}]}
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1699108181643,
+      "tag": "0000_omniscient_ogun",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1699108301712,
+      "tag": "0001_deep_maximus",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1699825125066,
+      "tag": "0002_handy_quicksilver",
+      "breakpoints": true
+    }
+  ]
+}

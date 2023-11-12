@@ -6,4 +6,21 @@ services:
       MYSQL_ROOT_PASSWORD: "${DATABASE_PASSWORD}"
     image: mysql:8
     ports:
-      - 3306:3306
+      - "3306:3306"
+    volumes:
+        - mysql-data:/var/lib/mysql
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: database
+    depends_on:
+      - database
+
+
+volumes:
+  mysql-data:
