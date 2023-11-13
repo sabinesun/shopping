@@ -87,6 +87,7 @@ export default async function handler(
           res.status(409).json({
             currentInventory: result.currentInventory,
             orderLine: orderLine.quantity,
+            productId: orderLine.productId,
           });
         }
 

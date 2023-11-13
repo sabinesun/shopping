@@ -24,6 +24,7 @@ import { OrderLinesType, postFetcher } from "@/lib/fetcher";
 import useSWRMutation from "swr/mutation";
 import { useContext } from "react";
 import { BasketContext } from "@/context/basket-context";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   lastName: z.string().min(1, {
@@ -41,6 +42,8 @@ const formSchema = z.object({
 });
 
 export const CheckoutForms = () => {
+  const router = useRouter();
+
   const basket = useContext(BasketContext);
   if (basket === undefined) {
     throw new Error();
@@ -52,7 +55,7 @@ export const CheckoutForms = () => {
     orderLines.push({ productId: value.id, quantity: value.quantity });
   });
 
-  const { trigger } = useSWRMutation("/api/checkout", postFetcher);
+  const { trigger, data, error } = useSWRMutation("/api/checkout", postFetcher);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,16 +67,24 @@ export const CheckoutForms = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    trigger({
-      lastName: values.lastName,
-      firstName: values.firstName,
-      email: values.email,
-      collectDate: values.collectDate.toISOString(),
-      orderLines: orderLines,
-    });
-
-    return <Popover></Popover>;
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await trigger({
+        lastName: values.lastName,
+        firstName: values.firstName,
+        email: values.email,
+        collectDate: values.collectDate.toISOString(),
+        orderLines: orderLines,
+      });
+      localStorage.clear();
+      basket.products.clear();
+      router.push("/checkout/validation");
+    } catch (error) {
+      if (error instanceof Error) {
+        localStorage.setItem("error", error.message);
+        router.push("/checkout/error");
+      }
+    }
   };
 
   return (

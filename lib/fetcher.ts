@@ -22,7 +22,7 @@ export const postFetcher = async (
     };
   },
 ) => {
-  await fetch(url, {
+  const res = await fetch(url, {
     method: "POST",
     body: JSON.stringify({
       lastName,
@@ -32,4 +32,9 @@ export const postFetcher = async (
       orderLines,
     }),
   });
+
+  if (res.status === 409) {
+    const errorData = await res.json();
+    throw new Error(JSON.stringify(errorData));
+  }
 };

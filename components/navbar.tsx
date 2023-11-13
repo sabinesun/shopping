@@ -35,16 +35,16 @@ export const Navbar = ({ deleteBasket }: NavbarProps) => {
     (item) => (totalPrice += Number(item.price) * item.quantity),
   );
 
-  const checkoutPath = ["/checkout"];
+  const checkoutPath = ["/checkout", "/checkout/validation"];
 
   return (
-    <header className="flex flex-row items-center bg-secondBackground px-7 py-2.5">
-      <Link href="/" className="w-full text-center">
+    <header className="grid grid-cols-[32px_minmax(0,1fr)_32px] bg-secondBackground px-7 py-2.5">
+      <Link href="/" className="col-start-2 w-full text-center">
         <Typography variant="h1">The shopping store</Typography>
       </Link>
       {!checkoutPath.includes(router.pathname) && (
         <Sheet>
-          <SheetTrigger className="flex items-center">
+          <SheetTrigger className="col-start-3 flex items-center">
             <ShoppingBasket />
           </SheetTrigger>
           <SheetContent className="flex flex-col justify-between">

@@ -36,6 +36,9 @@ export const ItemCard = ({ item }: ItemCardProps) => {
   const disabled = (item: BasketItem) => {
     const totalQuantity = data?.find((product) => product.id == item.id)
       ?.inventory;
+    if (totalQuantity === 0) {
+      return true;
+    }
     const actualBasketQuantity = basket.products.get(item.id)?.quantity;
     if (totalQuantity !== undefined && actualBasketQuantity !== undefined) {
       if (totalQuantity <= actualBasketQuantity) {
